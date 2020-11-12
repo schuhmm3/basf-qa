@@ -1,0 +1,25 @@
+{
+  "name": "basf-api-test",
+  "version": "0.0.1",
+  "description": "API Framework",
+  "license": "",
+  "scripts": {
+    "test": "./node_modules/.bin/cucumber-js ./features -f ./node_modules/cucumber-pretty -f json:./reports/cucumber_report.json",
+    "smpke": "./node_modules/.bin/cucumber-js ./features -f --tags=@smoke ./node_modules/cucumber-pretty -f json:./reports/cucumber_report.json",
+    "wip": "./node_modules/.bin/cucumber-js ./features --tags=@wip -f ./node_modules/cucumber-pretty -f json:./reports/cucumber_report.json"
+  },
+  "dependencies": {
+    "awilix": "4.2.7",
+    "lh-http-request": "0.0.1",
+    "dotenv": "8.2.0",
+    "http-status": "1.4.2",
+    "uuid": "8.3.1"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
+    "cucumber": "5.1.0",
+    "cucumber-html-reporter": "5.0.2",
+    "cucumber-pretty": "1.5.0"
+  }
+}
