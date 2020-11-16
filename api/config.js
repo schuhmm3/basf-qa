@@ -3,17 +3,17 @@
 
 require('dotenv').config();
 
-const {
-  ENVIRONMENT
-} = process.env;
-
 const config = {
   LOG_LEVEL: process.env.LOG_LEVEL || 'info',
-  EXCHANGE_SERVICE: {
-    URL: `${ENVIRONMENT}/api/v1/exchange/`,
+  BASE_URL: process.env.ENVIRONMENT,
+  PERSONS_SERVICE: {
+    GET_ALL: '/api/person/all',
+    GET: '/api/person/:personId',
+    PUT: '/api/person/'
   },
-  CURRENCY_SERVICE: {
-    URL: `${ENVIRONMENT}/api/v1/currencies/`,
+  CREDENTIALS: {
+    USERNAME: 'user',
+    PASSWORD: 'pwd!'
   }
 };
 

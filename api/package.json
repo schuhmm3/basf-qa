@@ -4,13 +4,18 @@
   "description": "API Framework",
   "license": "",
   "scripts": {
+    "lint": "eslint \"businessLogic/*.js\"",
+    "lint:fix": "eslint \"businessLogic/*.js\"",
+    "lint:show-unused-directives": "npm run lint -- --report-unused-disable-directives",
     "test": "./node_modules/.bin/cucumber-js ./features -f ./node_modules/cucumber-pretty -f json:./reports/cucumber_report.json",
-    "smpke": "./node_modules/.bin/cucumber-js ./features -f --tags=@smoke ./node_modules/cucumber-pretty -f json:./reports/cucumber_report.json",
-    "wip": "./node_modules/.bin/cucumber-js ./features --tags=@wip -f ./node_modules/cucumber-pretty -f json:./reports/cucumber_report.json"
+    "posttest": "node scripts/report.js",
+    "smoke": "./node_modules/.bin/cucumber-js --tags \"@smoke\" ./features -f ./node_modules/cucumber-pretty -f json:./reports/cucumber_report.json",
+    "postsmoke": "node scripts/report.js"
   },
   "dependencies": {
     "awilix": "4.2.7",
-    "lh-http-request": "0.0.1",
+    "lh-http-request": "0.0.2",
+    "eslint-config-lukahartridge": "0.0.2",
     "dotenv": "8.2.0",
     "http-status": "1.4.2",
     "uuid": "8.3.1"

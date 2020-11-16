@@ -12,19 +12,24 @@ const container = createContainer();
 
 // Libraries
 const httpStatus = require('http-status');
-
-const baseUrl = "http://devboxurl.com";
-const cookie = true;
-const clientHeaders = { Authorization: 'Bearer asdas2123asdq34' }
-const requestService = require('lh-http-request').create({ baseUrl, cookie, clientHeaders });
+const cucumberHtmlReport = require('cucumber-html-reporter');
 
 // Config
 const config = require('../config');
 
 // Services
-const requestService = require('./services/request.service');
-
 const personService = require('./entities/person/person.service');
+
+const baseUrl = config.BASE_URL
+const cookie = true;
+const username = config.CREDENTIALS.USERNAME;
+const password = config.CREDENTIALS.PASSWORD;
+
+const clientHeaders = {
+  Authorization: 'Basic ' + Buffer.from(username + ':' + password).toString('base64'),
+  Accept: 'application/json, text/plain, */*'
+}
+const requestService = require('lh-http-request').create({ baseUrl, cookie, clientHeaders });
 
 container.register({
   // Init
@@ -32,12 +37,14 @@ container.register({
 
   // Libraries
   httpStatus: asValue(httpStatus),
+  cucumberHtmlReport: asValue(cucumberHtmlReport),
 
   // Services
   requestService: asValue(requestService),
 
   // Entities - Services
   personService: asFunction(personService).singleton(),
+
 });
 
 module.exports = container;

@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = data =>({
-  currencyId: data.currencyToId,
-  currencyFromId: data.currencyFromId,
-  amount: data.amount
+module.exports = data => ({
+  id: data.id,
+  firstName: data.firstName,
+  lastName: data.lastName
 })

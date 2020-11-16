@@ -1,38 +1,26 @@
 Feature: Person
 
     As a company
-    I want to have a person api
-    So I can create manage persons
-
-    Scenario: An Admin User can create a new Currency
-        Given an Admin User
-        When a currency is created
-        Then the currency can be retrieved
-
-    Scenario: An Admin User can get all the currencies
-        Given an Admin User
-        Then all the currencies can be retrieved
+    I want to have a persons api
+    So I can manage persons
 
     @smoke
-    Scenario: An Admin user can delete a currency
-        Given an Admin User
-        When a currency is created
-        Then the currency can be retrieved
-        And a currency is deleted
-        And the currency can not be retrieved
+    Scenario: All the persons can be retrieved
+        When requesting a list of persons
+        Then persons are greather than zero
 
+    Scenario: Existing person can be retrieved
+        Given an existing person
+        When requesting a person by id
+        Then person is retrieved
 
-    Scenario: An Standard User can get all the currencies
-        Given an Standard user
-        Then all the currencies can be retrieved
-
-    @smoke
-    Scenario: An Standard user can not delete a currency
-        Given an Standard user
-        When all the currencies can be retrieved
-        Then a currency can not be deleted
+    Scenario: Non Existing person can not be retrieved
+        Given a non existing person
+        When requesting a person by id
+        Then person is not retrieved
 
     @smoke
-    Scenario: An Standard User can not create a new Currency
-        Given an Standard user
-        Then a currency can not be created
+    Scenario: A person can be created
+        Given a created person
+        When requesting a person by id
+        Then person is retrieved
