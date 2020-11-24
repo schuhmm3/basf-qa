@@ -43,3 +43,80 @@ You will noticed that each test is idempotent. This means that each test can be 
 - Use nouns instead of verbs in endpoint paths, this makes reference to the get enpoint api/person/all for the GET Http Request. In order to make it REST is should be GET - v1/persons in order to get all the resources and GET - v1/persons/{id} to get only one resource
 - The PUT endpoint is used is to create a person, but should be an endpoint to update an existing resource, the POST Http Method is used to create resources. Use PUT when you want to modify a singular resource which is already a part of resources collection. PUT replaces the resource in its entirety. Use PATCH if request updates part of the resource. Use POST when you want to add a child resource under resources collection.
 - The document mentioned that it should be available to test CRU operations, but there is not a PATCH endpoint to update an existing resource
+
+
+## Results
+
+```
+user@azure:~/challenges/test/LucasHartridge/api$ npm run test
+
+> basf-api-test@0.0.1 test /home/user/challenges/test/LucasHartridge/api
+> cucumber-js ./features -f ./node_modules/cucumber-pretty -f json:./reports/cucumber_report.json
+
+{"level":20,"time":1606208287464,"pid":15808,"hostname":"azure","name":"LH Http-Request","service":"requestService","msg":"Generating Axios Instance with Base Url: \n        http://azure.northeurope.cloudapp.azure.com. Cookies Set: true. Headers Set: [object Object]"}
+Feature: Person
+
+  @smoke
+  Scenario: All the persons can be retrieved
+    When requesting a list of persons
+    Then persons are greather than zero
+    ✖ failed
+      AssertionError
+          + expected - actual
+
+
+          at World.<anonymous> (/home/user/challenges/test/LucasHartridge/api/features/steps/person.step.js:39:37)
+
+  Scenario: Existing person can be retrieved
+    Given an existing person
+    When requesting a person by id
+{"level":50,"time":1606208287721,"pid":15808,"hostname":"azure","name":"LH Http-Request","service":"requestService","message":"Request failed with status code 404","status":404,"statusText":"","data":""}
+    Then person is retrieved
+    ✖ failed
+      AssertionError: expected undefined to equal 'Michael'
+          at World.<anonymous> (/home/user/challenges/test/LucasHartridge/api/features/steps/person.step.js:48:39)
+
+  Scenario: Non Existing person can not be retrieved
+    Given a non existing person
+    When requesting a person by id
+{"level":50,"time":1606208287733,"pid":15808,"hostname":"azure","name":"LH Http-Request","service":"requestService","message":"Request failed with status code 404","status":404,"statusText":"","data":""}
+    Then person is not retrieved
+
+  @smoke
+  Scenario: A person can be created
+    Given a created person
+    When requesting a person by id
+    Then person is retrieved
+
+Failures:
+
+1) Scenario: All the persons can be retrieved # features/person.feature:8
+   ✔ When requesting a list of persons # features/steps/person.step.js:30
+   ✖ Then persons are greather than zero # features/steps/person.step.js:38
+       AssertionError
+           + expected - actual
+
+
+           at World.<anonymous> (/home/user/challenges/test/LucasHartridge/api/features/steps/person.step.js:39:37)
+
+2) Scenario: Existing person can be retrieved # features/person.feature:12
+   ✔ Given an existing person # features/steps/person.step.js:7
+   ✔ When requesting a person by id # features/steps/person.step.js:34
+   ✖ Then person is retrieved # features/steps/person.step.js:47
+       AssertionError: expected undefined to equal 'Michael'
+           at World.<anonymous> (/home/user/challenges/test/LucasHartridge/api/features/steps/person.step.js:48:39)
+
+4 scenarios (2 failed, 2 passed)
+11 steps (2 failed, 9 passed)
+0m00.273s
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! basf-api-test@0.0.1 test: `cucumber-js ./features -f ./node_modules/cucumber-pretty -f json:./reports/cucumber_report.json`
+npm ERR! Exit status 1
+npm ERR!
+npm ERR! Failed at the basf-api-test@0.0.1 test script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/schuhmm3/.npm/_logs/2020-11-24T08_58_07_817Z-debug.log
+```
