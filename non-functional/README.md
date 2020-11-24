@@ -44,7 +44,7 @@ I have created a Dockerfile in order to make it easy for the person who will rev
 2. Run `docker build -t lt-basf .`
 3. Run `docker run -ti -p 8089:8089 -e "OPTS=--logfile=./locustfile.log --loglevel=DEBUG --headless -u 600 -r 50 -t 60s -H http://azure-qknows-prod-challenges-1.northeurope.cloudapp.azure.com" lt-basf`
 
-## Results
+## Results (only with empty database; otherwise no output)
 
 ```
 user@azure-host:~/challenges/test/LucasHartridge/non-functional$ docker run -ti -p 8089:8089 -e "OPTS=--logfile=./locustfile.log --loglevel=DEBUG --headless -u 600 -r 50 -t 60s -H http://azure-qknows-prod-challenges-1.northeurope.cloudapp.azure.com" lt-basf
